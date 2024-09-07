@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
-import type { IndexState, IndexResult, TabModel } from '../index/types';
+import type { IndexState, IndexResult, TabModel, MovieModel, Recommend } from '../index/types';
 import { IndexApi } from '@/api';
 
 const indexStore = defineStore('app', {
   state: () : IndexState => ({
     indexResult: new Map<number, IndexResult>,
-    tabs: new Array<TabModel>()
+    tabs: new Array<TabModel>(),
+    recommendList: new Array<Recommend>()
   }),
   getters: {
     getIndexResult() : Map<number, IndexResult> {
@@ -13,29 +14,46 @@ const indexStore = defineStore('app', {
     },
     getTabs() : Array<TabModel> {
       return this.tabs;
+    },
+    getRecommends() : Array<Recommend> {
+      return this.recommendList;
     }
   },
   actions: {
     setIndexResult(index : number, info : IndexResult) {
       this.indexResult.set(index, info)
     },
+    async getActionRecommend() {
+      return new Promise((r, _) => {
+        if (this.recommendList.length > 0) {
+          r(this.recommendList);
+          return;
+        }
+        IndexApi.getRecommendResult().then(res => {
+          console.error("getRecommendResult:", res)
+          this.recommendList= res.data;
+          r(this.recommendList);
+        }).catch(err => {
+          console.error("getRecommendResult:", err);
+        })
 
+      })
+    },
     async getActionTabs() {
       return new Promise((r, _) => {
-        if(this.tabs.length>0){
+        if (this.tabs.length > 0) {
           r(this.tabs);
           return;
         }
         IndexApi.getTabs().then(res => {
-          console.error(res);
           if (res.code === 200) {
-            let list=res.data;
-            list.sort((a,b)=>{
-              return a.sort-b.sort;
+            let list = res.data;
+            list.sort((a, b) => {
+              return a.sort - b.sort;
             })
             this.tabs = list;
             r(this.tabs);
-          }else{
+          } else {
             r(this.tabs);
           }
         }).catch(_ => {
@@ -76,7 +94,6 @@ const indexStore = defineStore('app', {
           return;
         }
         IndexApi.getIndexResult().then((res : any) => {
-          console.error(res)
           if (res.ret === 200) {
             let list = res.data.list;
             for (let i = 0; i < list.length; i++) {

@@ -34,15 +34,25 @@
 
   //获取首页数据
   const getHome = () => {
-    store.getIndexResultByIndex(0).then(res => {
+    store.getActionRecommend().then(res => {
       let list = res || [];
       let bannerObj = list.filter(v => {
         return v.type == 0;
       })[0]
       console.error(bannerObj)
       let bList = bannerObj ? bannerObj.bannerList : [];
+      for (let i = 0; i < bList.length; i++) {
+        let url = bList[i].surfacePlot;
+        if (url.indexOf("http") == -1) {
+          url = "/static/" + url;
+        }
+        bList[i]['image'] = url;
+      }
       banners.value = bList;
+    });
 
+    store.getIndexResultByIndex(0).then(res => {
+      let list = res || [];
       let dayHotObj = list.filter(v => {
         return v.type == 1;
       })[0];

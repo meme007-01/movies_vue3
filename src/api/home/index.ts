@@ -3,11 +3,12 @@
  */
 // import type { IndexParams } from './types';
 import { get } from '@/utils/request';
-import type { TabResultState } from '@/store/modules/index/types';
+import type { TabResultState,RecommendState } from '@/store/modules/index/types';
 // // import type { CommonResult } from '@/api/common/types';
 
 enum URL {
   tabsUrl = '/getNavigation',
+  getCommend="/getRecommend",
   // loginByCode = '/user/loginByCode',
   // logout = '/user/logout',
   // profile = '/user/profile',
@@ -1977,12 +1978,17 @@ const indexResult: any = {
   msg: null,
 };
 
-export const getIndexResult = () => {
-  return new Promise((r, _) => {
-    r(indexResult);
-  });
-};
+export const getIndexResult=()=>{
+  return new Promise((r,_)=>{
+    r(indexResult)
+  })
+}
+
+//推荐
+export const getRecommendResult = () => get<RecommendState>({url:URL.getCommend})
+//Tabs
 export const getTabs = () => get<TabResultState>({ url: URL.tabsUrl });
+
 // export const login = (data: LoginParams) => post<LoginResult>({ url: URL.login, data });
 // export const loginByCode = (data: LoginByCodeParams) => post<LoginByCodeResult>({ url: URL.loginByCode, data });
 // export const logout = () => post<CommonResult>({ url: URL.logout });
