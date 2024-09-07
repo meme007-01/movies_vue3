@@ -2,16 +2,16 @@
  * 用户信息相关接口
  */
 // import type { IndexParams } from './types';
-// import { get } from '@/utils/request';
-// // import type { UserState } from '@/store/modules/user/types';
+import { get } from '@/utils/request';
+import type { TabResultState } from '@/store/modules/index/types';
 // // import type { CommonResult } from '@/api/common/types';
 
-// enum URL {
-//   indexUrl = 'https://api.iyf.tv/api/list/index?IsNewEdition=true&System=h5&AppVersion=1.0&SystemVersion=h5&version=H3&DeviceId=52775921924bedf1cd39119fdb95c93c&Lang=0&pub=1725108220&vv=febbafb1b9fc8974fecf730143b598c4',
-//   // loginByCode = '/user/loginByCode',
-//   // logout = '/user/logout',
-//   // profile = '/user/profile',
-// }
+enum URL {
+  tabsUrl = '/getNavigation',
+  // loginByCode = '/user/loginByCode',
+  // logout = '/user/logout',
+  // profile = '/user/profile',
+}
 
 const indexResult: any = {
   ret: 200,
@@ -1982,7 +1982,7 @@ export const getIndexResult = () => {
     r(indexResult);
   });
 };
-// export const getUserProfile = (params?: ProfileParams) => get<UserState>({ url: URL.profile, params });
+export const getTabs = () => get<TabResultState>({ url: URL.tabsUrl });
 // export const login = (data: LoginParams) => post<LoginResult>({ url: URL.login, data });
 // export const loginByCode = (data: LoginByCodeParams) => post<LoginByCodeResult>({ url: URL.loginByCode, data });
 // export const logout = () => post<CommonResult>({ url: URL.logout });

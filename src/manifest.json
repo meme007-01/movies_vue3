@@ -84,7 +84,7 @@
     "router":
     {
       "mode": "hash",
-      "base": "/movies/"
+      "base": "/"
     }
   }
 }

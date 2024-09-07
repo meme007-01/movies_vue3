@@ -11,7 +11,7 @@
   		}" :inactiveStyle="{
   		    color: '#AAA',
   		    transform: 'scale(1)'
-  		}">
+  		}" keyName="title">
         <template #left>
           <view style="padding-left: 10rpx;">
             <up-icon name="/static/tabbar/tabbar_icon.png" color="#2979ff" size="28"></up-icon>
@@ -60,34 +60,8 @@
   }
 
   onMounted(() => {
-    tabList.value = [{
-        name: '首页',
-        index: 0
-      },
-      {
-        name: '电影',
-        index: 1
-      },
-      {
-        name: '电视剧',
-        index: 2
-      },
-      {
-        name: '综艺',
-        index: 3
-      },
-      {
-        name: '动漫',
-        index: 4
-      },
-      {
-        name: '体育',
-        index: 5
-      },
-      {
-        name: '纪录片',
-        index: 6
-      },
-    ]
+    store.getActionTabs().then(res=>{
+      tabList.value=res;
+    });
   })
 </script>

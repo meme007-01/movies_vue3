@@ -35,7 +35,6 @@
   //获取首页数据
   const getHome = () => {
     store.getIndexResultByIndex(0).then(res => {
-
       let list = res || [];
       let bannerObj = list.filter(v => {
         return v.type == 0;
