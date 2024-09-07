@@ -10,3 +10,4 @@ declare module '*.vue' {
 
 declare module 'uview-plus';
 declare module 'uview-plus/libs/mixin/mpShare.js';
+declare module 'vue3-video-play/dist/index.mjs'

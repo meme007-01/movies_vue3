@@ -1,33 +1,34 @@
-# movies_vue3
-this's vue3+uni-app+uview-plus+pina movies app project
+### 使用uniapp+vite+vue3+uview-plus3.0 搭建的微信小程序快速开发模版
 
-### 使用uniapp+vite+vue3+uview-plus3.0 搭建的APP项目
+使用uniapp+vite+vue3+typescript+uview-plus3.0 搭建的H5和微信小程序快速开发模版
 
-使用uniapp+vite+vue3+typescript+uview-plus3.0 搭建的APP项目  
+[uview-plus官方文档](https://uiadmin.net/uview-plus/)
 
+本项目集众多项目的优点，打造最适合团队协作开发的项目模板。
 
+在线预览地址：[https://oyjt.github.io/uniapp-vue3-template/](https://oyjt.github.io/uniapp-vue3-template/)
 
 ### 特性
 
-- [✔️] 集成uview-plus3.0 ui库
-- [✔️] 支持多环境打包构建
-- [✔️] 使用pinia状态管理
-- [✔️] 封装网络请求，并支持Typescript
-- [✔️] 支持路径别名
-- [✔️] 支持自动加载组件和API
-- [✔️] 自动校验git提交代码格式
-- [✔️] 集成ESLint、StyleLint、EditorConfig代码格式规范
-- [✔️] Typescript支持
-- [✔️] 集成UnoCSS
-- [✔️] 集成iconify图标库
-- [✔️] 集成z-paging下拉刷新功能
-- [✔️] 添加页面跳转拦截，登录权限校验
-- [✔️] 支持token无痛刷新
-- [✔️] 支持持续集成
-- [✔️] 项目分包
+- [x] 集成uview-plus3.0 ui库
+- [x] 支持多环境打包构建
+- [x] 使用pinia状态管理
+- [x] 封装网络请求，并支持Typescript
+- [x] 支持路径别名
+- [x] 支持自动加载组件和API
+- [x] 自动校验git提交代码格式
+- [x] 集成ESLint、StyleLint、EditorConfig代码格式规范
+- [x] Typescript支持
+- [x] 集成UnoCSS
+- [x] 集成iconify图标库
+- [x] 集成z-paging下拉刷新功能
+- [x] 添加页面跳转拦截，登录权限校验
+- [x] 支持token无痛刷新
+- [x] 支持持续集成
+- [x] 项目分包
 - [x] 集成小程序隐私协议授权组件
-- [✔️] 项目构建自动删除本地图片并替换本地图片路径为线上图片
-- [✔️] 集成包体积视图分析插件
+- [x] 项目构建自动删除本地图片并替换本地图片路径为线上图片
+- [x] 集成包体积视图分析插件
 
 ### VScode插件推荐
 - 可以为pages.json、manifest.json等提供语法提示和校验工作。[uni-app-schemas](https://marketplace.visualstudio.com/items?itemName=uni-helper.uni-app-schemas-vscode)
@@ -37,7 +38,7 @@ this's vue3+uni-app+uview-plus+pina movies app project
 ### 目录结构
 项目中采用目前最新的技术方案来实现，目录结构清晰。
 ```
-movies-vue3
+uniapp-vue3-project
 ├ build                 vite插件统一管理
 │  ├ vite
 │  └ constant.ts
@@ -184,6 +185,11 @@ pnpm build:h5-prod
 pnpm build:mp-weixin-prod
 ```
 
+### 代码提交
+```bash
+pnpm cz
+```
+
 ### 更新uniapp版本
 
 更新uniapp相关依赖到最新正式版
@@ -236,3 +242,11 @@ npx @dcloudio/uvm@latest
 5. 本项目中`permission.ts`中的拦截代码在小程序中的`tab`切换中无效，下面是官方给出的回复及解决方案。
 
 > 拦截uni.switchTab本身没有问题。但是在微信小程序端点击tabbar的底层逻辑并不是触发uni.switchTab。所以误认为拦截无效，此类场景的解决方案是在tabbar页面的页面生命周期onShow中处理。
+
+### 捐赠
+
+如果你觉得这个项目对你有帮助，你可以请作者喝饮料🍹
+
+<p align='center'>
+<img alt="微信收款码" src="./src/static/images/pay.png" height="330" style="display:inline-block; height:330px;">
+</p>

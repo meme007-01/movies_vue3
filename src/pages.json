@@ -11,7 +11,8 @@
     {
       "path": "pages/tab/home/index",
       "style": {
-        "navigationBarTitleText": "首页"
+        "navigationBarTitleText": "首页",
+        "navigationStyle": "custom"
       }
     },
     {
@@ -24,6 +25,42 @@
       "path": "pages/tab/user/index",
       "style": {
         "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/tab/hot/index",
+      "style" :
+      {
+        "navigationBarTitleText" : ""
+      }
+    },
+    {
+      "path" : "pages/tab/find/index",
+      "style" :
+      {
+        "navigationBarTitleText" : ""
+      }
+    },
+    {
+      "path" : "pages/tab/vip/index",
+      "style" :
+      {
+        "navigationBarTitleText" : ""
+      }
+    },
+    {
+      "path" : "pages/video_detail/index",
+      "style" :
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/tab/my/index",
+      "style" :
+      {
+        "navigationBarTitleText" : ""
       }
     }
   ],
@@ -50,17 +87,33 @@
   },
   "tabBar": {
     "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
-    "borderStyle": "black",
-    "backgroundColor": "#ffffff",
+    "selectedColor": "#FFF",
+    "borderStyle": "#101012",
+    "backgroundColor": "#101012",
     "list": [{
       "pagePath": "pages/tab/home/index",
+      "selectedIconPath": "static/tabbar/home_active.png",
+      "iconPath": "static/tabbar/home.png",
       "text": "首页"
     }, {
-      "pagePath": "pages/tab/list/index",
-      "text": "列表"
+      "pagePath": "pages/tab/find/index",
+      "selectedIconPath": "static/tabbar/find_active.png",
+      "iconPath": "static/tabbar/find.png",
+      "text": "发现"
     }, {
-      "pagePath": "pages/tab/user/index",
+      "pagePath": "pages/tab/vip/index",
+      "selectedIconPath": "static/tabbar/vip_active.png",
+      "iconPath": "static/tabbar/vip.png",
+      "text": "VIP"
+    }, {
+      "pagePath": "pages/tab/hot/index",
+      "selectedIconPath": "static/tabbar/hot_active.png",
+      "iconPath": "static/tabbar/hot.png",
+      "text": "热门"
+    }, {
+      "pagePath": "pages/tab/my/index",
+      "selectedIconPath": "static/tabbar/my_active.png",
+      "iconPath": "static/tabbar/my.png",
       "text": "我的"
     }]
   },
