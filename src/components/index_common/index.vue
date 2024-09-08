@@ -9,14 +9,14 @@
       <view v-bind:style="{'width': '100%','height': '380rpx','margin-top': '10rpx', 'margin-bottom': '10rpx'}">
         <view style="display: flex;flex-direction: column;justify-content: space-between;width: 100%;height: 100%;">
           <view @click="clickMovie(data.list[0])"
-            v-bind:style="{'background-image':'url('+data.list[0].coverImgUrl+')','background-size':'100% 100%','display': 'flex', 'flex-direction': 'column','justify-content': 'flex-end',  'flex': '1 1 100%'}">
+            v-bind:style="{'background-image':'url('+getConvUrl(data.list[0].surfacePlot)+')','background-size':'100% 100%','display': 'flex', 'flex-direction': 'column','justify-content': 'flex-end',  'flex': '1 1 100%'}">
             <view
               style="padding-bottom: 10rpx; padding-left: 15rpx;padding-right: 15rpx; display: flex;flex-direction: column;justify-content: space-between; font-size: 24rpx; height: 80rpx;line-height: 50rpx; color: #EEE; background: linear-gradient(to top,rgb(0,0,0,1),rgb(0,0,0,0));">
               <text style="color: #ff743d;font-size: 30rpx;font-weight: bold;">{{data.list[0].score}}</text>
               <view style="display: flex;flex-direction: row;justify-content: space-between">
                 <up-icon space="1" name="heart-fill" color="#EEE" size="16" labelSize="12" labelColor="#EEE"
-                  :label="getPlayerCount(data.list[0].playCount)"></up-icon>
-                <text v-if="isShowUpdate()" style="font-size: 20rpx;">{{data.list[0].updateStatus}}</text>
+                  :label="getPlayerCount(data.list[0].doubanScore)"></up-icon>
+                <text v-if="isShowUpdate()" style="font-size: 20rpx;">{{data.list[0].note}}</text>
               </view>
             </view>
           </view>
@@ -32,20 +32,20 @@
         v-for="(item,index) in data.list.filter((v,ix)=>{return ix>0})" :key="index">
         <view style="display: flex;flex-direction: column;justify-content: space-between;width: 100%;height: 100%;">
           <view @click="clickMovie(item)"
-            v-bind:style="{'background-image':'url('+item.coverImgUrl+')','background-size':'100% 100%','display': 'flex', 'flex-direction': 'column','justify-content': 'flex-end',  'flex': '1 1 100%'}">
+            v-bind:style="{'background-image':'url('+getConvUrl(item.surfacePlot)+')','background-size':'100% 100%','display': 'flex', 'flex-direction': 'column','justify-content': 'flex-end',  'flex': '1 1 100%'}">
             <view
               style="padding-bottom: 10rpx; padding-left: 15rpx;padding-right: 15rpx; display: flex;flex-direction: column;justify-content: space-between; font-size: 24rpx; height: 80rpx;line-height: 50rpx; color: #EEE; background: linear-gradient(to top,rgb(0,0,0,1),rgb(0,0,0,0));">
               <text style="color: #ff743d;font-size: 30rpx;font-weight: bold;">{{item.score}}</text>
               <view style="display: flex;flex-direction: row;justify-content: space-between">
                 <up-icon space="1" name="heart-fill" color="#EEE" size="16" labelSize="12" labelColor="#EEE"
-                  :label="getPlayerCount(item.playCount)"></up-icon>
-                <text v-if="isShowUpdate()" style="font-size: 20rpx;">{{item.updateStatus}}</text>
+                  :label="getPlayerCount(item.doubanScore)"></up-icon>
+                <text v-if="isShowUpdate()" style="font-size: 20rpx;">{{item.note}}</text>
               </view>
             </view>
           </view>
           <view
             style="background-color: #17181a;color: #DDD; height: 100rpx;padding: 10rpx;display: flex;flex-direction: column;">
-            <up-text color="#DDD" size="17" :text="data.list[0].title" lines="1"></up-text>
+            <up-text color="#DDD" size="17" :text="item.title" lines="1"></up-text>
             <span style="font-size: 22rpx;color: #777;">{{item.cidMapper}}</span>
           </view>
         </view>
@@ -53,7 +53,7 @@
 
     </view>
   </view>
-  <view style="background-color: #17181a;width: 100%; height: 60rpx; margin-top:5rpx;
+  <!-- <view style="background-color: #17181a;width: 100%; height: 60rpx; margin-top:5rpx;
   display: flex;flex-direction: row;justify-content: space-evenly;align-items: center;">
     <view style="width: 180rpx;display: flex;justify-content: center"><up-icon space="3"
         name="/static/images/index/movie_icon.png" size="14" labelSize="12" labelColor="#888"
@@ -61,7 +61,7 @@
     <span v-if="!isDongman()" style="width: 2rpx;height: 40rpx;background-color: #444;"></span>
     <view v-if="!isDongman()" style="width: 180rpx;display: flex;align-items: center;"><up-icon space="3"
         name="/static/images/index/refresh.png" size="14" labelSize="12" labelColor="#888" label="换一换"></up-icon></view>
-  </view>
+  </view> -->
 </template>
 
 <script setup>
@@ -102,6 +102,14 @@
   }
   const isDongman = () => {
     return props.data.type == 6;
+  }
+
+  const getConvUrl = (urlStr) => {
+    let url = urlStr;
+    if (url.indexOf("http") == -1 && url.indexOf("/static/") == -1) {
+      url = "/static/" + url;
+    }
+    return url;
   }
 </script>
 

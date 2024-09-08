@@ -70,16 +70,19 @@
 
       let list = res || [];
       let bannerObj = list.filter(v => {
-        return v.type == 0;
+        return v.type === 0;
       })[0]
       console.error(bannerObj)
       let bList = bannerObj ? bannerObj.bannerList : [];
       banners.value = bList;
 
-      otherList.value = list.filter(v => {
-        return v.type != 1 && v.type != 0 && v.list.length > 0;
+      let oList = list.filter(v => {
+        return v.type !== 1 && v.type !== 0 && v.list.length > 0;
       });
-
+      oList.sort((a, b) => {
+        return a.sort - b.sort;;
+      });
+      otherList.value = oList;
     })
   }
 

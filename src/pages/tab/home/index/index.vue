@@ -49,20 +49,15 @@
         bList[i]['image'] = url;
       }
       banners.value = bList;
-    });
 
-    store.getIndexResultByIndex(0).then(res => {
-      let list = res || [];
-      let dayHotObj = list.filter(v => {
-        return v.type == 1;
-      })[0];
-      dayHotData.value = dayHotObj;
-
-      otherList.value = list.filter(v => {
-        return v.type != 1 && v.type != 0 && v.list.length > 0;
+      let oList = list.filter(v => {
+        return v.type !== 0 && v.list.length > 0;
       });
-
-    })
+      oList.sort((a, b) => {
+        return a.sort - b.sort;;
+      });
+      otherList.value = oList;
+    });
   }
 
   onMounted(() => {

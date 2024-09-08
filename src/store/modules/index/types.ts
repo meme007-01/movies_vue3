@@ -86,6 +86,7 @@ export interface Recommend {
   list : Array<MovieModel>;//      []*MovieModel `json:"list" dc:"数据"`
   type : number;//         `json:"type" dc:"推荐页面0, 其他页面按分类id"`
   name : string;//       `json:"name" dc:"分类名称,服务器直接定义"`
+  sort : number;//类型排序
 }
 
 export interface RecommendState {
