@@ -94,3 +94,29 @@ export interface RecommendState {
   message : string;
   data : Array<Recommend>
 }
+
+
+
+//播放地址信息
+export interface PlayLineModel {
+  id : number;
+  videoLineId : number;//视频线路ID
+  videoId : number;//视频ID
+  name : string;//线路集数名称
+  sort : number;//排序
+  file : number;//播放地址
+  chargingMode : number;//收费模式 1免费 2vip免费 3金币点播
+  currency : number;//金币数量
+  subTitle : string;//副标题
+  status : number;//状态
+  createAt : number;//创建时间
+  updateAt : number;//更新时间
+  siteId : number;//站点id
+  tag : string;//标识 kcm3u8
+  liveSource : number;//是否是直播源1-是 0-否
+}
+export interface PlayLineResultState {
+  code : number;
+  message : string;
+  data : Array<PlayLineModel>
+}

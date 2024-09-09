@@ -3,9 +3,9 @@ const clickBanner=(item)=>{
 }
 
 const clickMovie=(item)=>{
-  console.error(item)
+  localStorage.setItem("currentVideo",encodeURIComponent(JSON.stringify(item)));
   uni.navigateTo({
-    url:"/pages/video_detail/index?info="+encodeURIComponent(JSON.stringify(item))
+    url:"/pages/video_detail/index",
   })
 }
 

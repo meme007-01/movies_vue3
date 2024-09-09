@@ -1,20 +1,21 @@
 /**
  * 用户信息相关接口
  */
-// import type { IndexParams } from './types';
-import { get } from '@/utils/request';
-import type { TabResultState,RecommendState } from '@/store/modules/index/types';
+import type { PlayLineParams } from './types';
+import { get, post } from '@/utils/request';
+import type { TabResultState, RecommendState, PlayLineResultState } from '@/store/modules/index/types';
 // // import type { CommonResult } from '@/api/common/types';
 
 enum URL {
   tabsUrl = '/getNavigation',
-  getCommend="/getRecommend",
+  getCommend = "/getRecommend",
+  getPlayLine = "/getPlayLine",
   // loginByCode = '/user/loginByCode',
   // logout = '/user/logout',
   // profile = '/user/profile',
 }
 
-const indexResult: any = {
+const indexResult : any = {
   ret: 200,
   data: {
     list: [
@@ -1978,16 +1979,18 @@ const indexResult: any = {
   msg: null,
 };
 
-export const getIndexResult=()=>{
-  return new Promise((r,_)=>{
+export const getIndexResult = () => {
+  return new Promise((r, _) => {
     r(indexResult)
   })
 }
 
 //推荐
-export const getRecommendResult = () => get<RecommendState>({url:URL.getCommend})
+export const getRecommendResult = () => get<RecommendState>({ url: URL.getCommend })
 //Tabs
 export const getTabs = () => get<TabResultState>({ url: URL.tabsUrl });
+//播放地址信息
+export const getPlayLine = (data : PlayLineParams) => post<PlayLineResultState>({ url: URL.getPlayLine, data });
 
 // export const login = (data: LoginParams) => post<LoginResult>({ url: URL.login, data });
 // export const loginByCode = (data: LoginByCodeParams) => post<LoginByCodeResult>({ url: URL.loginByCode, data });

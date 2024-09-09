@@ -23,6 +23,7 @@ const indexStore = defineStore('app', {
     setIndexResult(index : number, info : IndexResult) {
       this.indexResult.set(index, info)
     },
+    //获取推荐数据信息
     async getActionRecommend() {
       return new Promise((r, _) => {
         if (this.recommendList.length > 0) {
@@ -31,7 +32,7 @@ const indexStore = defineStore('app', {
         }
         IndexApi.getRecommendResult().then(res => {
           console.error("getRecommendResult:", res)
-          this.recommendList= res.data;
+          this.recommendList = res.data;
           r(this.recommendList);
         }).catch(err => {
           console.error("getRecommendResult:", err);
@@ -39,6 +40,7 @@ const indexStore = defineStore('app', {
 
       })
     },
+    //获取首页tab数据
     async getActionTabs() {
       return new Promise((r, _) => {
         if (this.tabs.length > 0) {
@@ -62,6 +64,18 @@ const indexStore = defineStore('app', {
       });
     },
 
+    //获取播放地址信息
+    async getPlayLine(videoId : number) {
+      return new Promise((r, _) => {
+        IndexApi.getPlayLine({ videoId: videoId }).then(res => {
+          console.error(res)
+          if (res.code == 200) {
+            let list = res.data;
+            r(list)
+          }
+        })
+      })
+    },
     initIndexResult() {
       this.indexResult = new Map<number, IndexResult>()
       this.indexResult.set(0, {

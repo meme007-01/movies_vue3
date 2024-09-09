@@ -5,3 +5,7 @@ export interface IndexParams {
 export interface IndexResult {
 
 }
+
+export interface PlayLineParams{
+  videoId:number;
+}
