@@ -1,5 +1,5 @@
 <template>
-  <view style="width: 100%;display: flex;flex-direction: column;background-color: #101012;">
+  <view style="width: 100%;height: 100%; display: flex;flex-direction: column;background-color: #101012;">
     <!-- transparent -->
     <up-navbar :autoBack="true" bgColor="transparent" height="50">
       <template #center>
@@ -11,9 +11,47 @@
       </template>
     </up-navbar>
 
-    <view style="width: 100%;height: 300rpx;margin-top: 100rpx;">
+    <view style="width: 100%;height: 300rpx;margin-top: 100rpx;background-color: aliceblue;">
       <div id="player" style="width: 100%;height: 400rpx;background-color: aliceblue;"></div>
     </view>
+
+    <view style="width: 100%;margin-top: 100rpx;">
+      <up-tabs style="margin-left: 30rpx;" :list="tabList" @click="clickTab" lineColor="#00c9ff" lineHeight="1" :activeStyle="{
+                  color: '#FFF',
+                  fontWeight: 'bold',
+                  transform: 'scale(1.05)'
+              }" :inactiveStyle="{
+                  color: '#CCC',
+                  transform: 'scale(1)'
+              }" itemStyle="padding-left: 15px; padding-right: 15px; height: 34px;"></up-tabs>
+
+      <view v-if="currentIndex==0"
+        style="margin-left: 20rpx;margin-right: 20rpx; margin-top: 30rpx; display: flex;flex-direction: column;">
+        <view style="font-size: 30rpx;font-weight: bold;color: #FFF">{{videoData.title}}</view>
+        <view style="display: flex;flex-direction: row;font-size: 20rpx;height: 50rpx;line-height: 50rpx;">
+          <up-icon name="heart-fill" size="16" :label="videoData.popularitySum"></up-icon>
+          <up-icon name="level" size="16" :label="videoData.doubanScore"></up-icon>
+        </view>
+        <up-read-more closeText="展开" :toggle="true" showHeight="50"
+          :shadowStyle='{"paddingTop": "100px","marginTop": "-100px","backgroundImage": ""}'>
+          <rich-text :nodes="videoData.introduce"></rich-text>
+        </up-read-more>
+        <!-- <view>详情说明</view> -->
+        <view style="display: flex;flex-wrap: wrap;color: #CCC;margin-top: 40rpx;">
+          <view @click="clickWhich(ix)" class="j-text"
+          :style="{'background-color': ix==currentWhich?'#0e222a':'#17181a','border':ix==currentWhich?'1px #0e222a solid':'1px #17181a solid',}"
+          v-for="(item,ix) in newLines" :key="ix">
+            <view>第{{item[0].sort}}集</view>
+          </view>
+        </view>
+      </view>
+
+      <view v-if="currentIndex==1" style="height: 400rpx;">
+        这里是评论
+      </view>
+    </view>
+
+
   </view>
 </template>
 
@@ -31,33 +69,29 @@
   const title = ref("")
   let dp = ref(null);
   const videoData = ref(null)
-
   const ixStore = indexStore();
+  const lines = ref([])
+  const newLines = ref([]);
+  const currentWhich = ref(0)
 
-  const lines = ref([
-    // {
-    //   name: 'HD',
-    //   url: 'https://api.heimuer.tv/play/f61b006c02704fea8ce0f32edf21dcdd.m3u8',
-    //   type: 'hls',
-    // },
-    // {
-    //   name: 'SD',
-    //   url: 'https://api.heimuer.tv/play/f61b006c02704fea8ce0f32edf21dcdd.m3u8',
-    //   type: 'hls',
-    // },
-  ])
+  const currentIndex = ref(0)
+  const tabList = ref([{
+      name: '简介'
+    },
+    {
+      name: '评论'
+    }
+  ]);
 
   onLoad((params) => {
     let item = localStorage.getItem("currentVideo");
     let info = JSON.parse(decodeURIComponent(item));
-    console.error(info)
     videoData.value = info;
     title.value = info.title;
   })
 
   onMounted(() => {
     ixStore.getPlayLine(videoData.value.id).then(res => {
-      let newLines = [];
       //根据sort 或者 name 分组,相同的就算作是多条线路处理,有多条的就按名称显示集数
       let dataList = res || [];
       dataList.sort((a, b) => {
@@ -66,18 +100,18 @@
 
       for (let i = 0; i < dataList.length; i++) {
         let ix = dataList[i].sort - 1;
-        if (!newLines[ix]) {
-          newLines[ix] = [];
+        if (!newLines.value[ix]) {
+          newLines.value[ix] = [];
         }
         let info = {
-          name: '线路' + (newLines[ix].length + 1),
+          name: '线路' + (newLines.value[ix].length + 1),
           url: res[i].file,
           type: 'hls',
+          sort: res[i].sort,
         }
-        newLines[ix].push(info);
+        newLines.value[ix].push(info);
       }
-
-      lines.value = newLines[0];
+      lines.value = newLines.value[currentWhich.value];
       initPlayer();
     })
 
@@ -159,8 +193,31 @@
       console.error(e)
     }
   })
+
+  const clickTab = (t) => {
+    currentIndex.value = t.index;
+  }
+
+  const clickWhich = (index) => {
+    if (currentWhich.value == index) return;
+    currentWhich.value = index;
+    lines.value = newLines.value[index];
+    dp.value.switchVideo(
+      lines.value[0]
+    );
+    dp.value.play();
+  }
 </script>
 
-<style>
+<style scoped>
+  .j-text {
+    padding: 12rpx;
+    /* border: 1px #CCC solid */;
+    margin-right: 16rpx;
+    margin-bottom: 16rpx;
+  }
 
+  .j-text-select {
+    background-color: #0e222a;
+  }
 </style>
