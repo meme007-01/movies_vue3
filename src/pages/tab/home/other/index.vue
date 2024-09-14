@@ -32,7 +32,7 @@
           <span style="margin-top: 5rpx;color: #DDD;">评分高</span>
         </view>
       </view>
-      <movieList :data="item" v-for="(item,index) in otherList" :key="index"></movieList>
+      <movieList :data="otherList" :key="index"></movieList>
       <up-gap height="40" bgColor="transparent"></up-gap>
     </z-paging>
   </view>
@@ -41,7 +41,7 @@
 <script setup>
   import {
     ref,
-    onMounted
+    onMounted,
   } from 'vue';
   import {
     clickMovieType
@@ -64,31 +64,29 @@
   const banners = ref([])
   const otherList = ref([]);
 
-  //获取首页数据
-  const getHome = () => {
-    store.getIndexResultByIndex(0).then(res => {
-
-      let list = res || [];
-      let bannerObj = list.filter(v => {
-        return v.type === 0;
-      })[0]
-      console.error(bannerObj)
-      let bList = bannerObj ? bannerObj.bannerList : [];
-      banners.value = bList;
-
-      let oList = list.filter(v => {
-        return v.type !== 1 && v.type !== 0 && v.list.length > 0;
-      });
-      oList.sort((a, b) => {
-        return a.sort - b.sort;;
-      });
-      otherList.value = oList;
-    })
-  }
+  const props=defineProps({
+    categoryPid:Number
+  })
 
   onMounted(() => {
     console.error("onMounted")
-    getHome();
+    // getHome();
+    store.getVideos(1,30,props.categoryPid,0).then(res=>{
+      console.error(res)
+      if(res.code==200){
+        let bList = res.bannerList;
+        for (let i = 0; i < bList.length; i++) {
+          let url = bList[i].surfacePlot;
+          if (url.indexOf("http") == -1) {
+            url = "/static/" + url;
+          }
+          bList[i]['image'] = url;
+        }
+        banners.value = bList;
+        otherList.value.push(...res.data);
+      }
+
+    })
   })
 
   // @query所绑定的方法不要自己调用！！需要刷新列表数据时，只需要调用paging.value.reload()即可

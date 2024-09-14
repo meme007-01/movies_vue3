@@ -19,8 +19,8 @@
         </template>
         <template #right>
           <view style="display: flex;flex-direction: row;padding-left: 20rpx;padding-right: 20rpx;">
-              <up-icon style="margin-right: 10rpx;" size="24" name="search"></up-icon>
-              <up-icon name="list" size="24"></up-icon>
+            <up-icon style="margin-right: 10rpx;" size="24" name="search"></up-icon>
+            <up-icon name="list" size="24"></up-icon>
           </view>
         </template>
       </up-tabs>
@@ -28,8 +28,8 @@
     <!-- swiper必须设置height:100%，因为swiper有默认的高度，只有设置高度100%才可以铺满页面  -->
     <swiper class="swiper" style="height: 100%;" :current="current" @change="onTabChanged">
       <swiper-item class="swiper-item" v-for="(item, index) in tabList" :key="index">
-        <index v-if="index==0" style="height: 100%; "></index>
-        <other :tab="item" v-if="index!=0" :title="index"></other>
+        <index v-if="index===0&& index===current" style="height: 100%; "></index>
+        <other :tab="item" v-if="index!==0 && index===current" :title="index" :categoryPid="item.id"></other>
       </swiper-item>
     </swiper>
   </z-paging-swiper>
@@ -41,7 +41,9 @@
   } from 'vue';
   import index from "./index/index.vue"
   import other from "./other/index.vue"
-  import {indexStore} from "@/store"
+  import {
+    indexStore
+  } from "@/store"
 
   const store = indexStore();
   const current = ref(0);
@@ -60,8 +62,8 @@
   }
 
   onMounted(() => {
-    store.getActionTabs().then(res=>{
-      tabList.value=res;
+    store.getActionTabs().then(res => {
+      tabList.value = res;
     });
   })
 </script>

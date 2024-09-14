@@ -1,15 +1,16 @@
 /**
  * 用户信息相关接口
  */
-import type { PlayLineParams } from './types';
+import type { PlayLineParams,VideoParams } from './types';
 import { get, post } from '@/utils/request';
-import type { TabResultState, RecommendState, PlayLineResultState } from '@/store/modules/index/types';
+import type { TabResultState, RecommendState, PlayLineResultState,VideoState } from '@/store/modules/index/types';
 // // import type { CommonResult } from '@/api/common/types';
 
 enum URL {
   tabsUrl = '/getNavigation',
   getCommend = "/getRecommend",
   getPlayLine = "/getPlayLine",
+  getVideos = "/getVideos",
   // loginByCode = '/user/loginByCode',
   // logout = '/user/logout',
   // profile = '/user/profile',
@@ -1991,6 +1992,9 @@ export const getRecommendResult = () => get<RecommendState>({ url: URL.getCommen
 export const getTabs = () => get<TabResultState>({ url: URL.tabsUrl });
 //播放地址信息
 export const getPlayLine = (data : PlayLineParams) => post<PlayLineResultState>({ url: URL.getPlayLine, data });
+
+//分类视频列表信息
+export const getVideos = (data : VideoParams) => post<VideoState>({ url: URL.getVideos, data });
 
 // export const login = (data: LoginParams) => post<LoginResult>({ url: URL.login, data });
 // export const loginByCode = (data: LoginByCodeParams) => post<LoginByCodeResult>({ url: URL.loginByCode, data });

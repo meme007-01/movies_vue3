@@ -64,6 +64,22 @@ const indexStore = defineStore('app', {
       });
     },
 
+    //获取分类视频信息
+    async getVideos(pageIndex:number,pageSize:number,categoryPid:number,categoryChildId:number){
+      return new Promise((r,_)=>{
+
+
+        IndexApi.getVideos({pageIndex:pageIndex,pageSize:pageSize,categoryPid:categoryPid,categoryChildId:categoryChildId}).then(res=>{
+          if (res.code == 200) {
+            let list = res.data;
+            r(res)
+          }
+        }).catch(err=>{
+          r([])
+        })
+      });
+    },
+
     //获取播放地址信息
     async getPlayLine(videoId : number) {
       return new Promise((r, _) => {

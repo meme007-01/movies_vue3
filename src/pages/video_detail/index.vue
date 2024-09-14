@@ -29,7 +29,7 @@
   } from "@/store"
 
   const title = ref("")
-  const dp = ref(null)
+  let dp = ref(null);
   const videoData = ref(null)
 
   const ixStore = indexStore();
@@ -148,6 +148,17 @@
     });
     dp.value = dPlayer;
   }
+
+  //销毁视频播放
+  onBeforeUnmount(() => {
+    try {
+      let hls = dp.value.plugins['hls']
+      hls.stopLoad && hls.stopLoad();
+      hls.destory && hls.destory();
+    } catch (e) {
+      console.error(e)
+    }
+  })
 </script>
 
 <style>

@@ -95,7 +95,13 @@ export interface RecommendState {
   data : Array<Recommend>
 }
 
-
+export interface VideoState {
+  code : number;
+  message : string;
+  data : Array<MovieModel>;
+  bannerList:Array<MovieModel>;
+  total:number;
+}
 
 //播放地址信息
 export interface PlayLineModel {
