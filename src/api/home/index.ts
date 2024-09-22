@@ -1,9 +1,9 @@
 /**
  * 用户信息相关接口
  */
-import type { PlayLineParams,VideoParams } from './types';
+import type { PlayLineParams, VideoParams, HotVideoParams } from './types';
 import { get, post } from '@/utils/request';
-import type { TabResultState, RecommendState, PlayLineResultState,VideoState } from '@/store/modules/index/types';
+import type { TabResultState, RecommendState, PlayLineResultState, VideoState, VideoHotState } from '@/store/modules/index/types';
 // // import type { CommonResult } from '@/api/common/types';
 
 enum URL {
@@ -11,6 +11,7 @@ enum URL {
   getCommend = "/getRecommend",
   getPlayLine = "/getPlayLine",
   getVideos = "/getVideos",
+  getHotVideos = "/getHotVideos",
   // loginByCode = '/user/loginByCode',
   // logout = '/user/logout',
   // profile = '/user/profile',
@@ -1995,6 +1996,8 @@ export const getPlayLine = (data : PlayLineParams) => post<PlayLineResultState>(
 
 //分类视频列表信息
 export const getVideos = (data : VideoParams) => post<VideoState>({ url: URL.getVideos, data });
+
+export const getHotVideos = (data : HotVideoParams) => post<VideoHotState>({ url: URL.getHotVideos, data });
 
 // export const login = (data: LoginParams) => post<LoginResult>({ url: URL.login, data });
 // export const loginByCode = (data: LoginByCodeParams) => post<LoginByCodeResult>({ url: URL.loginByCode, data });

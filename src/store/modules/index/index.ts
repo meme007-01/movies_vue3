@@ -65,16 +65,31 @@ const indexStore = defineStore('app', {
     },
 
     //获取分类视频信息
-    async getVideos(pageIndex:number,pageSize:number,categoryPid:number,categoryChildId:number){
-      return new Promise((r,_)=>{
+    async getVideos(pageIndex : number, pageSize : number, categoryPid : number, categoryChildId : number) {
+      return new Promise((r, _) => {
 
 
-        IndexApi.getVideos({pageIndex:pageIndex,pageSize:pageSize,categoryPid:categoryPid,categoryChildId:categoryChildId}).then(res=>{
+        IndexApi.getVideos({ pageIndex: pageIndex, pageSize: pageSize, categoryPid: categoryPid, categoryChildId: categoryChildId }).then(res => {
           if (res.code == 200) {
             let list = res.data;
             r(res)
           }
-        }).catch(err=>{
+        }).catch(err => {
+          r([])
+        })
+      });
+    },
+
+    //获取分类视频信息
+    async getHotVideos(categoryPid : number, tabType : number) {
+      return new Promise((r, _) => {
+
+        IndexApi.getHotVideos({ categoryPid: categoryPid, tabType: tabType }).then(res => {
+          if (res.code == 200) {
+            let list = res.data;
+            r(res)
+          }
+        }).catch(err => {
           r([])
         })
       });

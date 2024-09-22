@@ -16,7 +16,8 @@
     </view>
 
     <view style="width: 100%;margin-top: 100rpx;">
-      <up-tabs style="margin-left: 30rpx;" :list="tabList" @click="clickTab" lineColor="#00c9ff" lineHeight="1" :activeStyle="{
+      <up-tabs style="margin-left: 30rpx;" :list="tabList" @click="clickTab" lineColor="#00c9ff" lineHeight="1"
+        :activeStyle="{
                   color: '#FFF',
                   fontWeight: 'bold',
                   transform: 'scale(1.05)'
@@ -39,8 +40,8 @@
         <!-- <view>详情说明</view> -->
         <view style="display: flex;flex-wrap: wrap;color: #CCC;margin-top: 40rpx;">
           <view @click="clickWhich(ix)" class="j-text"
-          :style="{'background-color': ix==currentWhich?'#0e222a':'#17181a','border':ix==currentWhich?'1px #0e222a solid':'1px #17181a solid',}"
-          v-for="(item,ix) in newLines" :key="ix">
+            :style="{'background-color': ix==currentWhich?'#0e222a':'#17181a','border':ix==currentWhich?'1px #0e222a solid':'1px #17181a solid',}"
+            v-for="(item,ix) in newLines" :key="ix">
             <view>第{{item[0].sort}}集</view>
           </view>
         </view>
@@ -133,8 +134,8 @@
       video: {
         quality: lines.value,
         defaultQuality: 0,
-        pic: 'static/images/banner/banner1.jpg',
-        thumbnails: 'static/images/banner/banner1.jpg'
+        pic: getUrlPic(),
+        thumbnails: getUrlPic(),
       },
       pluginOptions: {
         hls: {
@@ -183,6 +184,14 @@
     dp.value = dPlayer;
   }
 
+  const getUrlPic = () => {
+    let url = videoData.value.surfacePlot;
+    if (url.startsWith("http")) {
+      return url;
+    }
+    return "/static/" + url;
+  }
+
   //销毁视频播放
   onBeforeUnmount(() => {
     try {
@@ -212,7 +221,8 @@
 <style scoped>
   .j-text {
     padding: 12rpx;
-    /* border: 1px #CCC solid */;
+    /* border: 1px #CCC solid */
+    ;
     margin-right: 16rpx;
     margin-bottom: 16rpx;
   }

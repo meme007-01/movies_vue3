@@ -99,8 +99,13 @@ export interface VideoState {
   code : number;
   message : string;
   data : Array<MovieModel>;
-  bannerList:Array<MovieModel>;
-  total:number;
+  bannerList : Array<MovieModel>;
+  total : number;
+}
+export interface VideoHotState {
+  code : number;
+  message : string;
+  data : Array<MovieModel>;
 }
 
 //播放地址信息
