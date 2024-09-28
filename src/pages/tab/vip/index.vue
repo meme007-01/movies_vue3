@@ -14,9 +14,12 @@
             style="margin: 0px 25px;height: 50px;display: flex;flex-direction: row;align-items: center;justify-content: space-between;">
             <view style="display: flex;flex-direction: row;">
               <up-icon name="/static/images/my/avatar.webp" size="30px"></up-icon>
-              <view style="display: flex;flex-direction: column;margin-left: 8px;align-items: flex-start;">
-                <up-icon name="level" labelColor="#FFF" space="5px" :bold="true" label="007" labelPos="left"></up-icon>
-                <span style="color: #CCC;font-size: 12px;margin-top: 3px;">你还没有开通VIP</span>
+              <view v-if="loginInfo==null" style="display: flex;flex-direction: column;margin-left: 8px;align-items: flex-start;">
+                <span style="color: #CCC;font-size: 12px;margin-top: 3px;">登录/注册</span>
+              </view>
+              <view v-else="loginInfo!=null" style="display: flex;flex-direction: column;margin-left: 8px;align-items: flex-start;">
+                <up-icon name="level" labelColor="#FFF" space="5px" :bold="true" :label="loginInfo.nickanme" labelPos="left"></up-icon>
+                <span style="color: #CCC;font-size: 12px;margin-top: 3px;">{{getVip()}}</span>
               </view>
             </view>
             <view
@@ -70,6 +73,13 @@
   import {
     ref
   } from "vue";
+  import {
+    getPlayer
+  } from '@/utils/auth';
+
+  let p = getPlayer();
+  const loginInfo = ref(p);
+
   const dataList = ref([])
   const titleNames = ref([
     ["超清4K", "过滤播放器广告", "求片"],
@@ -87,6 +97,13 @@
   const getSubIconUrl = (ix) => {
     let url = '/static/images/vip/vip_icon_' + ix + '.png';
     return url;
+  }
+
+  const getVip=()=>{
+    if(loginInfo.value){
+      return loginInfo.groupId==3?"VIP会员":loginInfo.groupId==2?"普通会员":"你还未开通VIP";
+    }
+    return "游客";
   }
 
   // @query所绑定的方法不要自己调用！！需要刷新列表数据时，只需要调用paging.value.reload()即可

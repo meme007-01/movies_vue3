@@ -32,7 +32,7 @@
           <span style="margin-top: 5rpx;color: #DDD;">评分高</span>
         </view>
       </view>
-      <movieList :data="otherList" :key="index"></movieList>
+      <movieList :data="otherList"></movieList>
       <up-gap height="40" bgColor="transparent"></up-gap>
     </z-paging>
   </view>

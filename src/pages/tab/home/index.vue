@@ -27,9 +27,9 @@
     </template>
     <!-- swiper必须设置height:100%，因为swiper有默认的高度，只有设置高度100%才可以铺满页面  -->
     <swiper class="swiper" style="height: 100%;" :current="current" @change="onTabChanged">
-      <swiper-item class="swiper-item" v-for="(item, index) in tabList" :key="index">
-        <index v-if="index===0&& index===current" style="height: 100%; "></index>
-        <other :tab="item" v-if="index!==0 && index===current" :title="index" :categoryPid="item.id"></other>
+      <swiper-item class="swiper-item" v-for="(item, ix) in tabList" :key="ix">
+        <index v-if="ix===0&& ix===current" style="height: 100%; "></index>
+        <other :tab="item" v-if="ix!==0 && ix===current" :title="ix" :categoryPid="item.id"></other>
       </swiper-item>
     </swiper>
   </z-paging-swiper>

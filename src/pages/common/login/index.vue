@@ -52,7 +52,7 @@
 <script setup lang="ts">
 import uCode from 'uview-plus/components/u-code/u-code.vue';
 import type { CSSProperties } from 'vue';
-import { setToken } from '@/utils/auth';
+import { setToken,setPlayer } from '@/utils/auth';
 // import { useUserStore } from '@/store';
 
 // const userStore = useUserStore();
@@ -106,6 +106,7 @@ async function submit() {
   // });
   // if (!res) return;
   setToken('1234567890');
+  setPlayer({nickanme:"测试登录",six:1})
   uni.reLaunch({ url: '/pages/tab/home/index' });
 }
 </script>

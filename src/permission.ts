@@ -1,9 +1,9 @@
 import { getToken } from '@/utils/auth';
 
 // 登录页面
-const loginPage = '/pages/common/login/index';
+const loginPage = '/pages/login/index';
 // 页面白名单
-const whiteList = ['/', '/pages/common/login/index', '/pages/tab/home/index'];
+const whiteList = ['/', '/pages/login/index', '/pages/tab/home/index'];
 
 // 检查地址白名单
 function checkWhite(url: string) {

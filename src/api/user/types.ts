@@ -1,23 +1,35 @@
 export interface ProfileParams {
-  user_id?: string;
+  user_id ?: string;
 }
 
 export interface LoginParams {
-  phone: string;
-  code: string;
+  account : string;
+  password : string;
 }
 
+export interface RegisterParams {
+  email : string;
+  password : string;
+  code : string;
+}
+
+
 export interface LoginByCodeParams {
-  code: string;
+  code : string;
 }
 
 export interface LoginByCodeResult {
-  [key: string]: any;
+  [key : string] : any;
 }
 
 export interface LoginResult {
-  token: string;
-  user_id: number;
-  user_name: string;
-  avatar: string;
+  token : string;
+  user_id : number;
+  user_name : string;
+  avatar : string;
+  nickname ?: string;
+  email ?: string;
+  password ?: string;
+  six ?: number,
+  vipLevel ?: number;
 }

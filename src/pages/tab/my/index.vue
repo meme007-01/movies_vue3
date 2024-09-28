@@ -8,10 +8,11 @@
         style="display: flex;margin-left: 20px;margin-right: 20px;margin-top: 20px; justify-content: space-between;align-items: flex-end;">
         <view style="display: flex;flex-direction: row;align-items: center;">
           <up-icon name="/static/images/my/avatar.webp" color="#2979ff" size="80"></up-icon>
-          <view style="margin-left: 10px;display: flex;flex-direction: row;align-items: center;color: #FFF;">
-            <span v-if="loginInfo===null" style="font-weight: bold;">登录/注册</span>
-            <span v-if="loginInfo!==null" style="font-size: 24px;">{{loginInfo.nickanme}}</span>
-            <up-icon v-if="loginInfo!==null" :name="getSix()" :color="getSixColor()" size="30"></up-icon>
+          <view @click="toLogin"
+            style="margin-left: 10px;display: flex;flex-direction: row;align-items: center;color: #FFF;">
+            <span v-if="!isLogin" style="font-weight: bold;">登录/注册</span>
+            <span v-if="isLogin" style="font-size: 24px;">{{loginInfo.nickname}}</span>
+            <up-icon v-if="isLogin" :name="getSix()" :color="getSixColor()" size="30"></up-icon>
           </view>
         </view>
         <view><up-image src="/static/images/my/my_float_sign.png" width="66px" height="48px"></up-image></view>
@@ -65,12 +66,21 @@
   import {
     ref
   } from 'vue';
+  import {
+    getPlayer
+  } from '@/utils/auth';
 
-  // {
-  //   nickanme: "meme007",
-  //   six: 0,
-  // }
-  const loginInfo = ref(null);
+  import {
+    useUserStore
+  } from '@/store';
+  const userStore = useUserStore();
+  const isLogin = ref(false);
+  const loginInfo = getPlayer(); //userStore.getUserInfo();
+  console.error(loginInfo)
+  if (loginInfo && loginInfo['email']) {
+    isLogin.value = true;
+  }
+
   const titleNames = ref(["关注", "粉丝", "等级", "金币"]);
   const iconNames = ref(["离线视频", "历史记录", "我的收藏", "消息"]);
   const serviceNames = ref([
@@ -98,6 +108,14 @@
     let c = row * 4 + col;
     let url = '/static/images/my/my_icon_' + c + '.png';
     return url;
+  }
+
+  const toLogin = () => {
+    if (!isLogin.value) { //没有登录,打开登录界面
+      uni.navigateTo({
+        url: "/pages/login/index"
+      })
+    }
   }
 </script>
 
